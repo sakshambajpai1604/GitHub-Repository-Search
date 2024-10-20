@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Repository Search</title>
+    <style>
+        body { font-family: Arial, sans-serif; }
+        .container { width: 80%; margin: 20px auto; }
+        .repository { border: 1px solid #ccc; padding: 15px; margin: 10px 0; }
+        .repository h3 { margin: 0; }
+        .repository p { margin: 5px 0; }
+        .repository a { text-decoration: none; color: blue; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>GitHub Repository Search</h1>
+        <form method="GET" action="">
+            <input type="text" name="q" placeholder="Enter a keyword" value="{{ query }}">
+            <button type="submit">Search</button>
+        </form>
+
+        <div id="results">
+            {% if repositories %}
+                <h2>Search Results for "{{ query }}"</h2>
+                {% for repo in repositories %}
+                    <div class="repository">
+                        <h3><a href="{{ repo.html_url }}" target="_blank">{{ repo.name }}</a></h3>
+                        <p>{{ repo.description }}</p>
+                        <p>⭐ Stars: {{ repo.stargazers_count }}</p>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p>No repositories found. Try searching for something else.</p>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
